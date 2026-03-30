@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Credits and acknowledgments for Nhywyll's website. Special thanks to artists and contributors who helped create this site.">
+    <meta name="keywords" content="credits, artists, contributors, Nhywyll, VTuber">
+    <meta name="author" content="Nhywyll">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/x-icon" href="images/For Icon.png">
+    <link rel="apple-touch-icon" href="images/For Icon.png">
+    <script>
+        (function(){
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+            document.documentElement.dataset.theme = savedTheme;
+        })();
+    </script>
+    <title>Credits | Nhywyll</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link">
+                <h1 class="visually-hidden" data-i18n="page_title">Nhywyll - VTuber & Content Creator</h1>
+                <img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager">
+            </a>
+            <ul>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="schedule.html" data-i18n="nav_schedule">Schedule</a></li>
+                <li><a href="links.html" data-i18n="nav_links">Links</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="credits.html" data-i18n="nav_credits">Credits</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+                    <button class="lang-btn" data-lang="de" aria-label="Switch to German">DE</button>
+                </div>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle between dark and light theme">🌙</button>
+                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <div class="container">
+            <h1 class="hero-title entrance-animate" data-i18n="credits_title">Credits & Acknowledgments</h1>
+            <p class="entrance-animate" data-i18n="credits_intro" style="animation-delay: 0.1s;">Special thanks to the amazing artists and contributors who helped bring this website to life. Click on their names or images to visit their profiles.</p>
+
+            <section class="artist-section entrance-animate">
+                <h2 data-i18n="credits_artists_title">Featured Artists</h2>
+                <div class="artist-grid">
+                    <!-- Keke's Gallery Card -->
+                    <div class="artist-card-full">
+                        <div class="artist-info">
+                            <a href="https://vgen.co/kekentang" target="_blank" rel="noopener noreferrer" class="artist-name">
+                                <h3>kekentang</h3>
+                            </a>
+                            <p class="artist-desc">Amazing VTuber illustrations and my favorite artist! Her work brings so much magic to the community.</p>
+                        </div>
+                        <div class="artwork-gallery">
+                            <div class="artwork-item">
+                                <img src="Artwork%20Libary/VGEN_Keke%20Flower%20(1).jpg" alt="Artwork by kekentang - Flower" loading="lazy">
+                            </div>
+                            <div class="artwork-item">
+                                <img src="Artwork%20Libary/VGen_Keke%20Star%20Sky%20(1).jpg" alt="Artwork by kekentang - Star Sky" loading="lazy">
+                            </div>
+                            <div class="artwork-item">
+                                <img src="Artwork%20Libary/VGen_Keke%20Watergoddess.jpg" alt="Artwork by kekentang - Watergoddess" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Placeholder for New Artist -->
+                    <div class="artist-card-placeholder">
+                        <div class="placeholder-content">
+                            <span>More artists coming soon...</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="other-credits">
+                <h2>Other Contributors</h2>
+                <ul>
+                    <li>Icons: Provided by various free icon libraries</li>
+                    <li>Fonts: Open-source fonts</li>
+                    <li>Feedback: Community members</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+
+    <button class="back-to-top" aria-label="Back to top" title="Move to top">↑</button>
+    <footer>&copy; 2026 Nhywyll · All rights reserved | <a href="imprint.html" data-i18n="imprint_link">Imprint</a></footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

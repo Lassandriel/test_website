@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nhywyll's streaming schedule and calendar. Check when I'm live on Twitch, what games I'm playing, and join the stream!">
+    <meta name="keywords" content="streaming schedule, Twitch schedule, VTuber calendar, live streams, gaming schedule">
+    <meta name="author" content="Nhywyll">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/x-icon" href="images/For Icon.png">
+    <link rel="apple-touch-icon" href="images/For Icon.png">
+    <script>
+        (function(){
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+            document.documentElement.dataset.theme = savedTheme;
+        })();
+    </script>
+    <title>Schedule | Nhywyll</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link"><img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager"></a>
+            <ul>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="schedule.html" data-i18n="nav_schedule">Schedule</a></li>
+                <li><a href="links.html" data-i18n="nav_links">Links</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="credits.html" data-i18n="nav_credits">Credits</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+                    <button class="lang-btn" data-lang="de" aria-label="Switch to German">DE</button>
+                </div>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle between dark and light theme">🌙</button>
+                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <section class="schedule-hero">
+        <h1 class="hero-title entrance-animate" data-i18n="schedule_title">Streaming Schedule</h1>
+        <p data-i18n="schedule_subtitle">When you can catch me live on Twitch!</p>
+    </section>
+
+    <div class="timezone-notice">
+        <h3 data-i18n="timezone_title">⏰ Timezone Information</h3>
+        <p data-i18n="timezone_text">All times are shown in <strong>Central European Time (CET)</strong></p>
+        <p data-i18n-html="timezone_converter">Convert to your timezone: <a href="https://www.timeanddate.com/worldclock/converter.html" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary);">Time Zone Converter</a></p>
+    </div>
+
+    <div class="schedule-grid">
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_monday">Monday</span>
+                <span class="day-status status-offline" data-i18n="status_offline">Offline</span>
+            </div>
+            <div class="stream-info">
+                <p>Rest day - Preparing for the week ahead!</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_tuesday">Tuesday</span>
+                <span class="day-status status-live" data-i18n="status_live">Live Now</span>
+            </div>
+            <div class="stream-info">
+                <p class="stream-time">8:00 PM - 11:00 PM CET</p>
+                <p class="stream-title">🎨 Digital Art Stream</p>
+                <p class="stream-game">Creating fan art and character designs</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_wednesday">Wednesday</span>
+                <span class="day-status status-upcoming" data-i18n="status_upcoming">Upcoming</span>
+            </div>
+            <div class="stream-info">
+                <p class="stream-time">7:00 PM - 10:00 PM CET</p>
+                <p class="stream-title">🎮 Gaming Session</p>
+                <p class="stream-game">Story-driven RPG adventure</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_thursday">Thursday</span>
+                <span class="day-status status-upcoming" data-i18n="status_upcoming">Upcoming</span>
+            </div>
+            <div class="stream-info">
+                <p class="stream-time">8:00 PM - 11:00 PM CET</p>
+                <p class="stream-title">💬 Community Night</p>
+                <p class="stream-game">Games, chat, and viewer requests</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_friday">Friday</span>
+                <span class="day-status status-upcoming" data-i18n="status_upcoming">Upcoming</span>
+            </div>
+            <div class="stream-info">
+                <p class="stream-time">9:00 PM - 12:00 AM CET</p>
+                <p class="stream-title">🎯 Variety Stream</p>
+                <p class="stream-game">Indie games and special surprises</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_saturday">Saturday</span>
+                <span class="day-status status-offline" data-i18n="status_offline">Offline</span>
+            </div>
+            <div class="stream-info">
+                <p>Weekend break - Recharging for next week!</p>
+            </div>
+        </div>
+
+        <div class="schedule-card">
+            <div class="day-header">
+                <span class="day-name" data-i18n="day_sunday">Sunday</span>
+                <span class="day-status status-offline" data-i18n="status_offline">Offline</span>
+            </div>
+            <div class="stream-info">
+                <p>Rest and creative work day</p>
+            </div>
+        </div>
+    </div>
+
+    </main>
+
+    <footer>&copy; 2026 Nhywyll · All rights reserved | <a href="imprint.html" data-i18n="imprint_link">Imprint</a></footer>
+
+    <button class="back-to-top" aria-label="Back to top" title="Scroll to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

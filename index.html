@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Nhywyll - VTuber Streamer, Content Creator & Digital Artist. Join live gaming streams, watch digital art creation, and connect with the community.">
+    <meta name="keywords" content="VTuber, streamer, gaming, digital art, content creator, Twitch, YouTube, Nhywyll">
+    <meta name="author" content="Nhywyll">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/For Icon.png">
+    <link rel="apple-touch-icon" href="images/For Icon.png">
+    <script>
+        (function(){
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+            document.documentElement.dataset.theme = savedTheme;
+        })();
+    </script>
+    <title data-i18n="page_title">Nhywyll - VTuber Streamer & Content Creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link">
+                <h1 class="visually-hidden">Nhywyll - VTuber & Content Creator</h1>
+                <img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager">
+            </a>
+            <ul>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="schedule.html" data-i18n="nav_schedule">Schedule</a></li>
+                <li><a href="links.html" data-i18n="nav_links">Links</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="credits.html" data-i18n="nav_credits">Credits</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+                    <button class="lang-btn" data-lang="de" aria-label="Switch to German">DE</button>
+                </div>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle between dark and light theme">🌙</button>
+                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+        <p class="nav-slogan" data-i18n="about_subtitle">VTuber • Streamer • Content Creator</p>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <section class="hero-section entrance-animate">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title" data-i18n="about_title">About Nhywyll</h1>
+                    <p class="hero-subtitle" data-i18n="about_subtitle">VTuber • Streamer • Content Creator</p>
+                    <div class="hero-badges">
+                        <span class="badge">Digital Artist</span>
+                        <span class="badge">Gamer</span>
+                        <span class="badge">Storyteller</span>
+                    </div>
+                </div>
+                <div class="hero-image-wrap" style="flex-shrink: 0;">
+                    <img src="images/For pfp.png" alt="Nhywyll - VTuber and Content Creator" class="hero-image" loading="eager">
+                    <div class="image-glow"></div>
+                </div>
+            </div>
+        </section>
+
+        <div class="about-content entrance-animate" style="animation-delay: 0.2s;">
+            <div class="about-text">
+                <h2 data-i18n="who_i_am_title">Who I Am</h2>
+                <p data-i18n="who_i_am_text1">Hi there! I'm Nhywyll, a passionate VTuber and content creator who loves bringing joy and creativity to the streaming community. With years of experience in digital art and character design, I create immersive experiences that connect with my audience on a deeper level.</p>
+                <p data-i18n="who_i_am_text2">When I'm not streaming, you'll find me working on exciting new projects, collaborating with other amazing creators, or diving deep into the latest indie games. I believe in creating content that's not just entertaining, but also meaningful and inclusive for everyone.</p>
+            </div>
+            <div class="about-extra entrance-animate" style="animation-delay: 0.4s;">
+                <h2 data-i18n="streaming_style_title">My Streaming Style</h2>
+                <p data-i18n="streaming_style_text">I focus on creating a welcoming environment where everyone feels comfortable joining in. Whether it's gaming sessions, digital art creation, or casual community chats, I love connecting with my viewers and building lasting relationships.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>&copy; 2026 Nhywyll · All rights reserved | <a href="imprint.html" data-i18n="imprint_link">Imprint</a></footer>
+
+    <button class="back-to-top" aria-label="Back to top" title="Scroll to top">↑</button>
+
+    <script src="script.js"></script>
+</body>
+</html>

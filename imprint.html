@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Legal imprint and privacy information for Nhywyll's website. Company details, contact information, and data privacy policies.">
+    <meta name="keywords" content="imprint, legal, privacy, Nhywyll contact, data protection">
+    <meta name="author" content="Nhywyll">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/x-icon" href="images/For Icon.png">
+    <link rel="apple-touch-icon" href="images/For Icon.png">
+    <script>
+        (function(){
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            if (savedTheme === 'light') {
+                document.documentElement.classList.add('light-theme');
+            }
+            document.documentElement.dataset.theme = savedTheme;
+        })();
+    </script>
+    <title>About & Imprint | Nhywyll</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <header>
+        <nav>
+            <a href="index.html" class="logo-link">
+                <h1 class="visually-hidden" data-i18n="page_title">Nhywyll - VTuber & Content Creator</h1>
+                <img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager">
+            </a>
+            <ul>
+                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
+                <li><a href="schedule.html" data-i18n="nav_schedule">Schedule</a></li>
+                <li><a href="links.html" data-i18n="nav_links">Links</a></li>
+                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
+                <li><a href="credits.html" data-i18n="nav_credits">Credits</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="language-switcher">
+                    <button class="lang-btn active" data-lang="en" aria-label="Switch to English">EN</button>
+                    <button class="lang-btn" data-lang="de" aria-label="Switch to German">DE</button>
+                </div>
+                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle between dark and light theme">🌙</button>
+                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+        <div class="imprint-container">
+        <h1 data-i18n="imprint_title">Info & Legal Imprint</h1>
+
+        <div class="imprint-card">
+            <h2 data-i18n="imprint_section">Imprint</h2>
+            <p data-i18n="imprint_company">Company: Nhywyll Creations</p>
+            <p data-i18n="imprint_address">Address: [Street Name], [City], [Country]</p>
+            <p data-i18n="imprint_contact">Contact: <a href="mailto:nhywyll@outlook.com" class="email-link">nhywyll@outlook.com</a></p>
+        </div>
+
+        <div class="imprint-card">
+            <h2 data-i18n="privacy_section">Privacy</h2>
+            <p data-i18n="privacy_text">Personal data is processed only to handle community interaction and business requests. Streaming platforms (Twitch, YouTube, Twitter etc.) have separate privacy policies.</p>
+        </div>
+    </div>
+
+    </main>
+    <button class="back-to-top" aria-label="Back to top" title="Move to top">↑</button>
+    <footer>&copy; 2026 Nhywyll · All rights reserved | <a href="imprint.html" data-i18n="imprint_link">Imprint</a></footer>
+    
+    <script src="script.js"></script>
+</body>
+</html>
