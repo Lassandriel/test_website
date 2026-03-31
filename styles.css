@@ -831,7 +831,9 @@ section h2 {
 .social-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.25rem;
+    column-gap: 1.25rem;
+    row-gap: 0rem;
+    padding: 0rem 5rem;
 }
 
 .links-card h2 {
