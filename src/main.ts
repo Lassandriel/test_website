@@ -73,7 +73,8 @@ function setupNavigation() {
         menuToggle.addEventListener('click', () => {
             const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
             menuToggle.setAttribute('aria-expanded', (!isExpanded).toString());
-            navUl.classList.toggle('active'); // Diese Klasse steuert meist das Einblenden im CSS
+            menuToggle.classList.toggle('open');
+            navUl.classList.toggle('open');
         });
     }
 }

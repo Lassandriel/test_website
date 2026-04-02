@@ -31,8 +31,8 @@ test_website/
 ├── contact.html          # Collaboration & Business center
 ├── credits.html          # Artist Showcase & Gallery
 ├── imprint.html          # Legal framework & Privacy policy
-├── styles.css            # Consolidated "Cyber-Anime" design system
-└── script.js             # Core logic: i18n, Twitch API & Analytics
+├── src/main.ts           # Core logic: i18n, Twitch API & Analytics
+└── src/lang/             # Translation modules
 ```
 
 ---
