@@ -2016,3 +2016,44 @@ body.consent-banner-visible .live-widget {
     visibility: visible;
     transform: translateX(-50%) translateY(0);
 }
+
+/* === Emote Integration === */
+.title-with-emote {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 1.5rem;
+}
+
+.faq-container .title-with-emote {
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+
+.inline-emote {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    animation: floatingHero 6s ease-in-out infinite;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+}
+
+/* === Credits Mini Gallery === */
+.artwork-mini-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+.artwork-mini-gallery img {
+    border-radius: 8px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    border: 1px solid var(--border-color);
+    transition: transform 0.3s ease;
+}
+.artwork-mini-gallery img:hover {
+    transform: scale(1.1);
+    border-color: var(--accent-primary);
+}
