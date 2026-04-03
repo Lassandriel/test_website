@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
+/* Google Fonts loaded via non-blocking preload link in HTML <head> */
+
 
 /* CSS Custom Properties for Themes */
 :root {
@@ -105,7 +106,7 @@ body {
     background-image:
         radial-gradient(circle at 0% 0%, rgba(138, 198, 255, 0.15) 0%, transparent 50%),
         radial-gradient(circle at 100% 100%, rgba(194, 153, 255, 0.15) 0%, transparent 50%);
-    background-attachment: fixed;
+    background-attachment: scroll;
     animation: meshMove 20s infinite alternate ease-in-out;
     transition: none;
     overflow-x: hidden;

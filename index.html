@@ -14,6 +14,16 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="images/For Icon.png">
     <link rel="apple-touch-icon" href="images/For Icon.png">
+
+    <!-- Google Fonts: preconnect first, then non-blocking load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"></noscript>
+
+    <!-- Preload LCP hero image -->
+    <link rel="preload" as="image" href="images/For pfp.webp" type="image/webp">
+
     <script>
         (function () {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -27,13 +37,14 @@
 
 </head>
 
+
 <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <header>
         <nav>
             <a href="index.html" class="logo-link">
                 <h1 class="visually-hidden">Nhywyll - VTuber & Content Creator</h1>
-                <img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
+                <img src="images/Logo.webp" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
             </a>
             <ul>
                 <li><a href="index.html" data-i18n="nav_home">Home</a></li>
@@ -70,7 +81,7 @@
                     </div>
                 </div>
                 <div class="hero-image-wrap" style="flex-shrink: 0;">
-                    <img src="images/For pfp.png" alt="Nhywyll - VTuber - Content Creator" class="hero-image"
+                    <img src="images/For pfp.webp" alt="Nhywyll - VTuber - Content Creator" class="hero-image"
                         loading="eager" fetchpriority="high" width="320" height="380">
                     <div class="image-glow"></div>
                 </div>
@@ -80,7 +91,7 @@
         <section class="about-content entrance-animate" style="animation-delay: 0.2s;">
             <div class="about-text">
                 <img src="images/artwork-library/VGen_Mel Smol Bean (2).webp" alt="Smol Bean by Melumii"
-                    class="smol-bean-img">
+                    class="smol-bean-img" width="220" height="220" loading="lazy">
                 <h2 data-i18n="who_i_am_title">who_i_am_title</h2>
                 <p data-i18n="who_i_am_text1">who_i_am_text1</p>
                 <p data-i18n="who_i_am_text2">who_i_am_text2</p>
@@ -90,7 +101,7 @@
         <section class="faq-section" style="animation-delay: 0.4s;">
             <div class="faq-container">
                 <div class="title-with-emote">
-                    <img src="images/Emotes/confused.png" alt="Confused FAQ" class="inline-emote faq-emote">
+                    <img src="images/Emotes/confused.webp" alt="Confused FAQ" class="inline-emote faq-emote" width="60" height="60" loading="lazy">
                     <h2 data-i18n="faq_title" class="section-title" style="margin-bottom:0;">faq_title</h2>
                 </div>
                 <div class="faq-grid">

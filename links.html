@@ -12,6 +12,11 @@
     <meta name="robots" content="index, follow">
     <link rel="icon" type="image/x-icon" href="images/For Icon.png">
     <link rel="apple-touch-icon" href="images/For Icon.png">
+    <!-- Google Fonts: non-blocking load -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap"></noscript>
     <script>
         (function () {
             const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -30,7 +35,7 @@
         <nav>
             <a href="index.html" class="logo-link">
                 <h1 class="visually-hidden" data-i18n="page_title">Nhywyll - VTuber & Content Creator</h1>
-                <img src="images/Logo.png" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
+                <img src="images/Logo.webp" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
             </a>
             <ul>
                 <li><a href="index.html" data-i18n="nav_home">Home</a></li>
@@ -64,7 +69,7 @@
                     <img src="images/media/twitch-purple.svg" alt="Twitch Logo" class="social-icon" loading="lazy" width="60" height="60">
                     <div class="title-with-emote" style="justify-content: center;">
                         <h2 data-i18n="twitch" style="margin-bottom:0;">Twitch</h2>
-                        <img src="images/Emotes/Animated-raid.gif" alt="Twitch Raid" class="inline-emote">
+                        <img src="images/Emotes/Animated-raid.webp" alt="Twitch Raid" class="inline-emote">
                     </div>
                     <p data-i18n="twitch_desc">Live gaming streams, viewer events, and community night.</p>
                     <a data-i18n="twitch_link" href="https://twitch.tv/nhywyll" target="_blank"
