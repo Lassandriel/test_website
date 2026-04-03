@@ -114,31 +114,55 @@ setupLanguageButtons();
 
 // --- Smooth Page Transitions ---
 function setupPageTransitions() {
-    // Wenn die Seite lädt, body mit page-enter Klasse versehen
-    document.body.classList.add('page-enter');
+    const mainContent = document.getElementById('main-content');
+    if (!mainContent) return;
+
+    // Wenn die Seite lädt, main mit page-enter Klasse versehen
+    mainContent.classList.add('page-enter');
+
+    // Nach der Animation die Klasse entfernen, um transform-Seiteneffekte (wie bei z-index oder fixed) zu vermeiden
+    mainContent.addEventListener('animationend', (e) => {
+        if (e.animationName === 'pageEnterAnim') {
+            mainContent.classList.remove('page-enter');
+        }
+    });
 
     // Alle internen Links abfangen
     document.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         const link = target.closest('a');
 
-        if (!link) return;
+        if (!link || !link.href) return;
 
-        const href = link.getAttribute('href');
         const targetAttr = link.getAttribute('target');
 
-        // Nur bei relativen/internen HTML-Links, die nicht im neuen Tab öffnen
-        if (href && !href.startsWith('http') && !href.startsWith('mailto:') && !href.startsWith('#') && targetAttr !== '_blank') {
-            e.preventDefault();
-            
-            // Aktuelle Animationen entfernen, Exit-Animation starten
-            document.body.classList.remove('page-enter');
-            document.body.classList.add('page-exit');
+        try {
+            const url = new URL(link.href);
 
-            // Warten bis Animation fertig ist, dann weiterleiten
-            setTimeout(() => {
-                window.location.href = href;
-            }, 500); // Entspricht der Dauer der pageExitAnim
+            // Nur bei Links auf derselben Domain, die nicht im neuen Tab öffnen
+            if (url.origin === window.location.origin && targetAttr !== '_blank') {
+                
+                // Wenn der Link auf die exakt gleiche Seite zeigt (z.B. nur ein Anker wie #privacy)
+                if (url.pathname === window.location.pathname) {
+                    return; // Normales Scroll-Verhalten des Browsers zulassen
+                }
+
+                // Für "mailto:" oder "tel:" ignorieren (die URL origin ist dann anders oder es wirft Fehler, aber zur Sicherheit)
+                if (link.getAttribute('href')?.startsWith('mailto:')) return;
+
+                e.preventDefault();
+                
+                // Aktuelle Animationen entfernen, Exit-Animation starten
+                mainContent.classList.remove('page-enter');
+                mainContent.classList.add('page-exit');
+
+                // Warten bis Animation fertig ist, dann weiterleiten
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, 500); // Entspricht der Dauer der pageExitAnim
+            }
+        } catch (err) {
+            // Ignorieren falls URL ungültig ist
         }
     });
 }
