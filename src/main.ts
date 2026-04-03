@@ -97,6 +97,7 @@ function setupTheme() {
 
 // Und die Aufrufe oben in den Start-Bereich (oder ans Ende der Datei) hinzufügen:
 setupPageTransitions();
+setupEffects();
 setupNavigation();
 setupTheme();
 setupCookieBanner();
@@ -164,6 +165,73 @@ function setupPageTransitions() {
         } catch (err) {
             // Ignorieren falls URL ungültig ist
         }
+    });
+}
+
+// --- Background Effects & Bird Tracks ---
+function setupEffects() {
+    // 1. Feather Particles Background
+    const particlesContainer = document.createElement('div');
+    particlesContainer.id = 'particles-container';
+    document.body.prepend(particlesContainer); // Ganz nach hinten
+
+    const createFeather = () => {
+        const feather = document.createElement('div');
+        feather.className = 'feather-particle';
+        
+        // Zufällige Startposition, Größe und Animationsdauer
+        const startPosX = Math.random() * 100; // 0 bis 100vw
+        const size = Math.random() * 0.5 + 0.5; // 0.5 bis 1
+        const duration = Math.random() * 10 + 10; // 10s bis 20s
+        const delay = Math.random() * 5; // 0s bis 5s
+
+        feather.style.left = `${startPosX}vw`;
+        feather.style.transform = `scale(${size})`;
+        feather.style.animationDuration = `${duration}s`;
+        feather.style.animationDelay = `${delay}s`;
+
+        particlesContainer.appendChild(feather);
+
+        // Entfernen, wenn die Animation durch ist, um DOM-Müll zu vermeiden
+        setTimeout(() => {
+            feather.remove();
+        }, (duration + delay) * 1000);
+    };
+
+    // Erzeuge periodisch neue Federn
+    setInterval(createFeather, 800);
+
+    // Initial ein paar Federn spawnen
+    for (let i = 0; i < 15; i++) {
+        createFeather();
+    }
+
+    // 2. Bird Track Click Effect
+    document.addEventListener('click', (e) => {
+        const track = document.createElement('div');
+        track.className = 'bird-track';
+        
+        // Position genau unter der Maus
+        track.style.left = `${e.clientX}px`;
+        track.style.top = `${e.clientY}px`;
+        
+        // Leichte, zufällige Rotation für organischen Look
+        const rotation = Math.random() * 40 - 20; // -20deg bis +20deg
+        track.style.transform = `translate(-50%, -50%) rotate(${rotation}deg) scale(0)`;
+        
+        // Die Animation überschreibt transform, also nutzen wir ein Wrapper-Element für die Rotation
+        // Das bedeutet, der Wrapper rotiert, das Kind pulsiert/fadet
+        // -> Um das in CSS beizubehalten, habe ich das scale() direkt hier in TS entfernt und belasse es im CSS
+        
+        // Besserer Fix: CSS-Variablen für die Rotation
+        track.style.setProperty('--track-rot', `${rotation}deg`);
+
+        document.body.appendChild(track);
+
+        // Element nach der Animation entfernen (0.8s)
+        setTimeout(() => {
+            track.remove();
+        }, 800);
     });
 }
 
