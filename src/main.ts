@@ -98,6 +98,7 @@ function setupTheme() {
 // Und die Aufrufe oben in den Start-Bereich (oder ans Ende der Datei) hinzufügen:
 setupNavigation();
 setupTheme();
+setupCookieBanner();
 // START (Vite führt das Script erst aus, wenn das DOM bereit ist, 
 // daher brauchen wir hier oft kein DOMContentLoaded mehr)
 updateTexts();
@@ -109,6 +110,55 @@ setupLanguageButtons();
     localStorage.setItem('language', lang);
     updateTexts();
 };
+
+// --- Cookie Banner & Analytics ---
+function setupCookieBanner() {
+    const consent = localStorage.getItem('cookieConsent');
+    
+    if (consent === 'all') {
+        initAnalytics();
+        return;
+    } else if (consent === 'essential') {
+        return; // Nur essenziell, kein Analytics laden
+    }
+
+    // Banner in den DOM einfügen, falls noch keine Auswahl getroffen wurde
+    const banner = document.createElement('div');
+    banner.id = 'cookie-banner';
+    banner.className = 'cookie-banner glass-card entrance-animate';
+    banner.innerHTML = `
+        <div class="cookie-content">
+            <h3 data-i18n="cookie_title">Cookie-Einstellungen</h3>
+            <p data-i18n="cookie_text">Wir nutzen Cookies auf unserer Website...</p>
+            <div class="cookie-links">
+                <a href="imprint.html#imprint" data-i18n="imprint_link">Impressum</a> |
+                <a href="imprint.html#privacy" data-i18n="privacy_link">Datenschutz</a>
+            </div>
+        </div>
+        <div class="cookie-buttons">
+            <button id="cookie-reject" class="btn btn-secondary" data-i18n="cookie_reject">Nur essenzielle</button>
+            <button id="cookie-accept" class="btn" data-i18n="cookie_accept">Alle akzeptieren</button>
+        </div>
+    `;
+
+    document.body.appendChild(banner);
+
+    const closeBanner = (status: 'all' | 'essential') => {
+        localStorage.setItem('cookieConsent', status);
+        banner.style.opacity = '0';
+        banner.style.transform = 'translateY(100%)';
+        setTimeout(() => banner.remove(), 400);
+        if (status === 'all') initAnalytics();
+    };
+
+    document.getElementById('cookie-accept')?.addEventListener('click', () => closeBanner('all'));
+    document.getElementById('cookie-reject')?.addEventListener('click', () => closeBanner('essential'));
+}
+
+function initAnalytics() {
+    console.log("Analytics initialized (Consent granted).");
+    // Hier das Google Analytics (GA4) Skript dynamisch einfügen
+}
 
 // --- FAQ Accordion ---
 function setupFAQ() {
