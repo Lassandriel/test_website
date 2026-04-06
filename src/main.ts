@@ -234,17 +234,21 @@ function setupEffects() {
 }
 
 // --- Cookie Banner & Analytics ---
-function setupCookieBanner() {
+function setupCookieBanner(forceShow = false) {
     const consent = localStorage.getItem('cookieConsent');
     
-    if (consent === 'all') {
-        initAnalytics();
-        return;
-    } else if (consent === 'essential') {
-        return; // Nur essenziell, kein Analytics laden
+    if (!forceShow) {
+        if (consent === 'all') {
+            initAnalytics();
+            return;
+        } else if (consent === 'essential') {
+            return; // Nur essenziell, kein Analytics laden
+        }
     }
 
-    // Banner in den DOM einfügen, falls noch keine Auswahl getroffen wurde
+    if (document.getElementById('cookie-banner')) return;
+
+    // Banner in den DOM einfügen, falls noch keine Auswahl getroffen wurde oder forceShow true ist
     const banner = document.createElement('div');
     banner.id = 'cookie-banner';
     banner.className = 'cookie-banner glass-card entrance-animate';
@@ -264,6 +268,7 @@ function setupCookieBanner() {
     `;
 
     document.body.appendChild(banner);
+    updateTexts(); // Update texts for the dynamically created banner
 
     const closeBanner = (status: 'all' | 'essential') => {
         localStorage.setItem('cookieConsent', status);
@@ -276,6 +281,14 @@ function setupCookieBanner() {
     document.getElementById('cookie-accept')?.addEventListener('click', () => closeBanner('all'));
     document.getElementById('cookie-reject')?.addEventListener('click', () => closeBanner('essential'));
 }
+
+document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (target.id === 'open-cookie-banner' || target.closest('#open-cookie-banner')) {
+        e.preventDefault();
+        setupCookieBanner(true);
+    }
+});
 
 function initAnalytics() {
     console.log("Analytics initialized (Consent granted).");
