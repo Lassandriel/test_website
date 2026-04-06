@@ -279,7 +279,21 @@ function setupCookieBanner() {
 
 function initAnalytics() {
     console.log("Analytics initialized (Consent granted).");
-    // Hier das Google Analytics (GA4) Skript dynamisch einfügen
+    
+    // Google Analytics (GA4) Skript dynamisch einfügen
+    const script1 = document.createElement('script');
+    script1.async = true;
+    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-R18WRP31XQ';
+    document.head.appendChild(script1);
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-R18WRP31XQ');
+    `;
+    document.head.appendChild(script2);
 }
 
 // --- FAQ Accordion ---
