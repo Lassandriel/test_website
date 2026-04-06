@@ -177,7 +177,13 @@ h1, h2, h3, h4, h5, h6, .section-title {
     border: 0;
 }
 
-body {
+html, body {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: clip; /* Superior to 'hidden' for mobile scroll performance */
+    position: relative;
     font-family: 'Outfit', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
@@ -188,7 +194,6 @@ body {
     background-attachment: scroll;
     animation: meshMove 20s infinite alternate ease-in-out;
     transition: none;
-    overflow-x: hidden;
 }
 
 @keyframes meshMove {
@@ -224,16 +229,17 @@ header {
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     color: var(--text-primary);
-    padding: 0 10px;
+    padding: 0;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid var(--glass-border);
     position: sticky;
     top: 0;
     z-index: var(--z-header);
     display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: clip; 
 
     & nav {
         display: flex;
@@ -1092,6 +1098,7 @@ section,
     align-items: center;
     justify-content: center;
     aspect-ratio: 1 / 1;
+    margin: 0; /* Override global margin to fix grid gaps */
     background: var(--bg-glass);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -1135,6 +1142,11 @@ section,
         height: 64px;
         margin: 0 0 0.5rem 0;
         transition: transform 0.4s ease, filter 0.4s ease;
+    }
+
+    /* Fix height for tiles with emotes (like Twitch) */
+    & .title-with-emote {
+        margin-bottom: 0;
     }
 }
 
@@ -1349,9 +1361,10 @@ footer {
         justify-content: center;
         align-items: center;
         gap: clamp(1rem, 3vw, 2rem);
-        transition: right 0.4s ease-in-out;
+        transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
         box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
         margin: 0;
+        will-change: transform;
     }
 
     nav ul.open {
