@@ -363,7 +363,7 @@ nav {
 /* Contact page specific */
 .container {
     width: 90%;
-    max-width: 900px;
+    max-width: 860px;
     margin: 3rem auto;
     padding: 1rem;
 }
@@ -556,7 +556,7 @@ section h2 {
 .artist-desc {
     color: var(--text-secondary);
     font-size: 1.1rem;
-    max-width: 800px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
@@ -1543,7 +1543,7 @@ footer a:hover {
 /* FAQ Section */
 .faq-section {
     padding: 6rem 1.5rem;
-    max-width: 900px;
+    max-width: 860px;
     margin: 0 auto;
 }
 
