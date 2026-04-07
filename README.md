@@ -1,5 +1,7 @@
 # 🌌 Nhywyll | Premium VTuber & Streamer Portfolio
 
+**Live:** [nhywyll.com](https://nhywyll.com) | **Test/Staging:** [test.nhywyll.com](https://test.nhywyll.com)
+
 Welcome to the official source code for **Nhywyll's Digital Home**. This project is a high-performance, **Cyber-Anime themed hub** designed for VTubers and Content Creators, blending cutting-edge aesthetics with technical excellence.
 
 ## 🚀 Key Features
@@ -19,7 +21,9 @@ Welcome to the official source code for **Nhywyll's Digital Home**. This project
 ## 📁 Project Structure
 
 ```text
-c:/Users/Tcul/Desktop/Test_website/
+test_website/
+├── scripts/                # Deployment Automation
+│   └── deploy-prod.js       # One-click production script
 ├── public/                 # Static assets (images, logos, icons, fonts)
 │   ├── images/
 │   │   ├── Emotes/           # Live stream emotes
@@ -50,10 +54,29 @@ c:/Users/Tcul/Desktop/Test_website/
 
 ---
 
+## ⚙️ Deployment
+
+The project uses a two-stage deployment process via GitHub Pages:
+
+### Test / Staging (`test.nhywyll.com`)
+Changes to the `main` branch are automatically pushed to the test subdomain.
+```bash
+git push origin main
+```
+
+### Production (`nhywyll.com`)
+To push the current state to the main domain, use the integrated script:
+```bash
+npm run deploy:prod
+```
+*This automatically toggles the CNAME configuration and pushes to the production repository.*
+
+---
+
 ## ⚖️ License & Rights
-- **Character Art & Branding**: All original character designs, unique branding assets, and custom illustrations are **© Nhywyll**.
-- **Third-Party Logos**: All platform logos (Twitch, YouTube, Bluesky, Razer, etc.) are the property of their respective trademark holders and are used solely for identification and linking purposes.
-- **Code**: The website architecture is provided for educational and portfolio demonstration purposes.
+- **Code**: The source code of this project is licensed under the [MIT License](LICENSE).
+- **Character Art & Branding**: All original character designs, branding elements, and illustrations are **© Nhywyll** and may not be used without explicit permission.
+- **Third-Party Logos**: All platform logos (Twitch, YouTube, etc.) are the property of their respective owners.
 
 ---
 *Crafted with 💜 by Nhywyll*
