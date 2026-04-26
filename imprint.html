@@ -1,14 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no">
+    <load src="/src/components/head-common.html" />
     <meta name="description" content="Legal imprint and privacy information for Nhywyll's website. Company details, contact information, and data privacy policies.">
     <meta name="keywords" content="imprint, legal, privacy, Nhywyll contact, data protection">
-    <meta name="author" content="Nhywyll">
-    <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://nhywyll.com/imprint.html">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://nhywyll.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net; font-src 'self';">
 
     <!-- Open Graph -->
     <!-- Social Media Previews -->
@@ -18,49 +14,10 @@
     <meta property="og:description" content="Legal information and privacy policy for nhywyll.com.">
     <meta property="og:image" content="https://nhywyll.com/images/Logo.webp">
 
-    <link rel="icon" type="image/png" href="images/For Icon.png">
-    <link rel="apple-touch-icon" href="images/For Icon.png">
-    
-
-    <script>
-        (function(){
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.documentElement.classList.add('light-theme');
-            }
-            document.documentElement.dataset.theme = savedTheme;
-        })();
-    </script>
     <title data-i18n="page_title_imprint">page_title_imprint</title>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link">
-                <span class="visually-hidden" data-i18n="page_title">Nhywyll - VTuber & Content Creator</span>
-                <img src="images/Logo.webp" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
-            </a>
-            <ul>
-                <li><a href="index.html" data-i18n="nav_home">nav_home</a></li>
-                <li><a href="links.html" data-i18n="nav_links">nav_links</a></li>
-                <li><a href="contact.html" data-i18n="nav_contact">nav_contact</a></li>
-                <li><a href="credits.html" data-i18n="nav_credits">nav_credits</a></li>
-            </ul>
-            <div class="nav-actions">
-                <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en" aria-label="EN - Switch to English">EN</button>
-                    <button class="lang-btn" data-lang="de" aria-label="DE - Switch to German">DE</button>
-                </div>
-                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle between dark and light theme">🌙</button>
-                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <load src="/src/components/header.html" />
 
     <main id="main-content" tabindex="-1">
         <div class="imprint-container">
@@ -77,15 +34,7 @@
             </section>
         </div>
     </main>
-    <button class="back-to-top" aria-label="Back to top" title="Move to top">↑</button>
-    <footer>
-        &copy; 2026 Nhywyll &middot; All rights reserved | <a href="imprint.html#imprint" data-i18n="imprint_link">imprint_link</a> &middot; <a href="imprint.html#privacy" data-i18n="privacy_link">privacy_link</a> &middot; <a href="#" id="open-cookie-banner" data-i18n="cookie_settings_link">Cookie Settings</a>
-        <span class="easter-hint-container" aria-hidden="true">
-            🐣
-            <span class="easter-tooltip" data-i18n="easter_hint">easter_hint</span>
-        </span>
-    </footer>
-    
-    <script type="module" src="/src/main.ts"></script>
+    <load src="/src/components/footer.html" />
+</body>
 </body>
 </html>

@@ -2,16 +2,11 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, shrink-to-fit=no">
-    <meta name="description"
-        content="Nhywyll - VTuber Streamer, Stoneblock 4 Player & Chicken Lover. Join the community for modded Minecraft survival, Silkies, and cozy gaming.">
-    <meta name="keywords"
-        content="VTuber, streamer, modded Minecraft, Stoneblock 4, Silkies, Chicken Lover, Twitch, YouTube, Nhywyll">
-    <meta name="author" content="Nhywyll">
-    <meta name="robots" content="index, follow">
+    <load src="/src/components/head-common.html" />
+    
+    <meta name="description" content="Nhywyll - VTuber Streamer, Stoneblock 4 Player & Chicken Lover. Join the community for modded Minecraft survival, Silkies, and cozy gaming.">
+    <meta name="keywords" content="VTuber, streamer, modded Minecraft, Stoneblock 4, Silkies, Chicken Lover, Twitch, YouTube, Nhywyll">
     <link rel="canonical" href="https://nhywyll.com/">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://nhywyll.com https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://stats.g.doubleclick.net; font-src 'self';">
 
     <!-- Social Media Previews (Open Graph) -->
     <meta property="og:type" content="website">
@@ -20,24 +15,9 @@
     <meta property="og:description" content="Join Nhywyll's community for modded Minecraft survival, Stoneblock 4 adventures, and cozy gaming vibes.">
     <meta property="og:image" content="https://nhywyll.com/images/Logo.webp">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/For Icon.png">
-    <link rel="apple-touch-icon" href="images/For Icon.png">
-
-
     <!-- Preload LCP hero image -->
     <link rel="preload" as="image" href="images/For pfp.webp" type="image/webp">
 
-
-    <script>
-        (function () {
-            const savedTheme = localStorage.getItem('theme') || 'dark';
-            if (savedTheme === 'light') {
-                document.documentElement.classList.add('light-theme');
-            }
-            document.documentElement.dataset.theme = savedTheme;
-        })();
-    </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -60,39 +40,10 @@
     }
     </script>
     <title data-i18n="page_title">Nhywyll - VTuber Streamer & Content Creator</title>
-
 </head>
 
-
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
-    <header>
-        <nav>
-            <a href="index.html" class="logo-link">
-                <span class="visually-hidden" data-i18n="page_title">Nhywyll - VTuber & Content Creator</span>
-                <img src="images/Logo.webp" alt="Nhywyll Logo" class="logo" loading="eager" width="125" height="125">
-            </a>
-            <ul>
-                <li><a href="index.html" data-i18n="nav_home">Home</a></li>
-                <li><a href="links.html" data-i18n="nav_links">Links</a></li>
-                <li><a href="contact.html" data-i18n="nav_contact">Contact</a></li>
-                <li><a href="credits.html" data-i18n="nav_credits">Credits</a></li>
-            </ul>
-            <div class="nav-actions">
-                <div class="language-switcher">
-                    <button class="lang-btn active" data-lang="en" aria-label="EN - Switch to English">EN</button>
-                    <button class="lang-btn" data-lang="de" aria-label="DE - Switch to German">DE</button>
-                </div>
-                <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme"
-                    title="Toggle between dark and light theme">🌙</button>
-                <button id="menu-toggle" class="menu-btn" aria-label="Toggle navigation menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </nav>
-    </header>
+    <load src="/src/components/header.html" />
 
     <main id="main-content" tabindex="-1">
         <section class="hero-section entrance-animate">
@@ -172,19 +123,7 @@
         </section>
     </main>
 
-    <footer>
-        &copy; 2026 Nhywyll &middot; All rights reserved | <a href="imprint.html#imprint"
-            data-i18n="imprint_link">imprint_link</a> &middot; <a href="imprint.html#privacy"
-            data-i18n="privacy_link">privacy_link</a> &middot; <a href="#" id="open-cookie-banner" data-i18n="cookie_settings_link">Cookie Settings</a>
-        <span class="easter-hint-container" aria-hidden="true">
-            🐣
-            <span class="easter-tooltip" data-i18n="easter_hint">easter_hint</span>
-        </span>
-    </footer>
-
-    <button class="back-to-top" aria-label="Back to top" title="Scroll to top">↑</button>
-
-    <script type="module" src="/src/main.ts"></script>
+    <load src="/src/components/footer.html" />
 </body>
 
 </html>

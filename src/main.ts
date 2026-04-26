@@ -1,8 +1,16 @@
 import './styles.css';
 import { translations } from './lang/index';
 
-// Sprache festlegen
-let currentLanguage = localStorage.getItem('language') || 'de';
+// Sprache festlegen: Wir prüfen erst localStorage, dann die Browser-Sprache (Standard ist English)
+const getInitialLanguage = (): string => {
+    const saved = localStorage.getItem('language');
+    if (saved) return saved;
+
+    const browserLang = navigator.language.split('-')[0]; // z.B. 'de' oder 'en'
+    return browserLang === 'de' ? 'de' : 'en';
+};
+
+let currentLanguage = getInitialLanguage();
 
 // Die Funktion zum Texte austauschen
 function updateTexts() {
@@ -34,34 +42,61 @@ function updateTexts() {
     });
 
     document.documentElement.lang = currentLanguage;
-    updateActiveButton();
+    updateLanguageUI();
 }
 
-// Buttons optisch aktualisieren
-function updateActiveButton() {
-    const buttons = document.querySelectorAll('.lang-btn');
-    buttons.forEach(btn => {
-        const lang = (btn as HTMLElement).dataset.lang;
+// Dropdown UI aktualisieren (Nur Flagge im Button und aktive Klasse im Menü)
+function updateLanguageUI() {
+    const activeLangSpan = document.querySelector('.active-lang');
+    if (activeLangSpan) {
+        const flags: Record<string, string> = {
+            'en': '🇺🇸',
+            'de': '🇩🇪'
+        };
+        activeLangSpan.textContent = flags[currentLanguage] || currentLanguage.toUpperCase();
+    }
+
+    const options = document.querySelectorAll('.lang-opt');
+    options.forEach(opt => {
+        const lang = (opt as HTMLElement).dataset.lang;
         if (lang === currentLanguage) {
-            btn.classList.add('active');
+            opt.classList.add('active');
         } else {
-            btn.classList.remove('active');
+            opt.classList.remove('active');
         }
     });
 }
 
-// 4. Event Listener für Buttons
-function setupLanguageButtons() {
-    const buttons = document.querySelectorAll('.lang-btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const lang = (btn as HTMLElement).dataset.lang;
+// 4. Sprachaustausch-Logik & Dropdown
+function setupLanguageSwitcher() {
+    const switcher = document.querySelector('.language-switcher');
+    const currentBtn = document.querySelector('.current-lang');
+    const options = document.querySelectorAll('.lang-opt');
+
+    if (!switcher || !currentBtn) return;
+
+    // Dropdown öffnen/schließen
+    currentBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        switcher.classList.toggle('open');
+    });
+
+    // Sprache wählen
+    options.forEach(opt => {
+        opt.addEventListener('click', () => {
+            const lang = (opt as HTMLElement).dataset.lang;
             if (lang && lang !== currentLanguage) {
                 currentLanguage = lang;
                 localStorage.setItem('language', lang);
                 updateTexts();
             }
+            switcher.classList.remove('open');
         });
+    });
+
+    // Schließen wenn man außerhalb klickt
+    document.addEventListener('click', () => {
+        switcher.classList.remove('open');
     });
 }
 // 6. Mobile Menü Logik
@@ -83,14 +118,16 @@ function setupNavigation() {
 function setupTheme() {
     const themeToggle = document.getElementById('theme-toggle');
     if (themeToggle) {
+        // Initiales Icon setzen basierend auf dem aktuellen Theme (wurde im Head-Script gesetzt)
+        const isLight = document.documentElement.classList.contains('light-theme');
+        themeToggle.textContent = isLight ? '☀️' : '🌙';
+
         themeToggle.addEventListener('click', () => {
-            const isLight = document.documentElement.classList.toggle('light-theme');
-            const newTheme = isLight ? 'light' : 'dark';
+            const isLightNow = document.documentElement.classList.toggle('light-theme');
+            const newTheme = isLightNow ? 'light' : 'dark';
             document.documentElement.dataset.theme = newTheme;
             localStorage.setItem('theme', newTheme);
-
-            // Icon wechseln (optional, falls du das im alten Code hattest)
-            themeToggle.textContent = isLight ? '☀️' : '🌙';
+            themeToggle.textContent = isLightNow ? '☀️' : '🌙';
         });
     }
 }
@@ -102,7 +139,9 @@ setupNavigation();
 setupTheme();
 setupCookieBanner();
 updateTexts();
-setupLanguageButtons();
+setupLanguageSwitcher();
+setupActiveNavHighlight();
+setupScrollEffects();
 
 // Global verfügbar machen für Notfälle
 (window as any).setLanguage = (lang: string) => {
@@ -110,6 +149,63 @@ setupLanguageButtons();
     localStorage.setItem('language', lang);
     updateTexts();
 };
+
+// --- Scroll Effects (Progress Bar & Back-to-Top) ---
+function setupScrollEffects() {
+    // Progress Bar Element erstellen
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+
+    const backToTop = document.querySelector('.back-to-top') as HTMLElement;
+
+    window.addEventListener('scroll', () => {
+        // Fortschritt berechnen
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        
+        progressBar.style.width = scrolled + "%";
+
+        // Back-to-Top Button ein/ausblenden
+        if (backToTop) {
+            if (winScroll > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        }
+    });
+
+    // Klick-Event für sanftes Scrollen nach oben
+    backToTop?.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// --- Active Nav Highlight ---
+function setupActiveNavHighlight() {
+    const currentPath = window.location.pathname;
+    const navLinks = document.querySelectorAll('nav ul li a');
+
+    navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if (!href) return;
+
+        // Prüfen ob der Link zur aktuellen Seite passt
+        const isHome = (currentPath === '/' || currentPath.endsWith('index.html')) && (href === 'index.html');
+        const isExactMatch = currentPath.endsWith(href);
+
+        if (isHome || isExactMatch) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
 
 // --- Smooth Page Transitions ---
 function setupPageTransitions() {
