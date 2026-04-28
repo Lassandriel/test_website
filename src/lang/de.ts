@@ -112,5 +112,11 @@ export const de: Translation = {
     "contact_privacy_notice": "Mit dem Absenden der Nachricht erklärst du dich mit der Verarbeitung deiner Daten gemäß der <a href='imprint.html#privacy' class='email-link' style='font-size: 0.8rem;'>Datenschutzerklärung</a> einverstanden.",
     "404_title": "Huch! Verirrt im Modpack?",
     "404_text": "Es scheint, als wurde diese Seite verschoben, gelöscht oder sie versteckt sich einfach in einem geheimen Hühnerstall.",
-    "back_home": "Zurück in Sicherheit (Startseite)"
+    "back_home": "Zurück in Sicherheit (Startseite)",
+    "skip_link": "Zum Hauptinhalt springen",
+    "aria_label_change_language": "Sprache ändern",
+    "aria_label_theme_toggle": "Farbschema umschalten",
+    "title_theme_toggle": "Zwischen Dunkel- und Hellmodus wechseln",
+    "aria_label_menu_toggle": "Navigationsmenü umschalten",
+    "aria_label_back_to_top": "Zurück nach oben"
 };

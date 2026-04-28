@@ -22,25 +22,40 @@ function updateTexts() {
   }
 
   const elements = document.querySelectorAll(
-    "[data-i18n], [data-i18n-html], [data-i18n-placeholder]",
+    "[data-i18n], [data-i18n-html], [data-i18n-placeholder], [data-i18n-aria-label], [data-i18n-title]",
   );
 
   elements.forEach((el) => {
     const htmlEl = el as HTMLElement;
-    // Wir prüfen die Attribute nacheinander
-    const key =
-      htmlEl.getAttribute("data-i18n") ||
-      htmlEl.getAttribute("data-i18n-html") ||
-      htmlEl.getAttribute("data-i18n-placeholder");
+    
+    // Check for standard text content
+    const textKey = htmlEl.getAttribute("data-i18n");
+    if (textKey && strings[textKey]) {
+      htmlEl.textContent = strings[textKey];
+    }
 
-    if (key && strings[key]) {
-      if (htmlEl.hasAttribute("data-i18n")) {
-        htmlEl.textContent = strings[key];
-      } else if (htmlEl.hasAttribute("data-i18n-html")) {
-        htmlEl.innerHTML = strings[key];
-      } else if (htmlEl.hasAttribute("data-i18n-placeholder")) {
-        (htmlEl as HTMLInputElement).placeholder = strings[key];
-      }
+    // Check for HTML content
+    const htmlKey = htmlEl.getAttribute("data-i18n-html");
+    if (htmlKey && strings[htmlKey]) {
+      htmlEl.innerHTML = strings[htmlKey];
+    }
+
+    // Check for placeholder
+    const placeholderKey = htmlEl.getAttribute("data-i18n-placeholder");
+    if (placeholderKey && strings[placeholderKey]) {
+      (htmlEl as HTMLInputElement).placeholder = strings[placeholderKey];
+    }
+
+    // Check for aria-label
+    const ariaKey = htmlEl.getAttribute("data-i18n-aria-label");
+    if (ariaKey && strings[ariaKey]) {
+      htmlEl.setAttribute("aria-label", strings[ariaKey]);
+    }
+
+    // Check for title
+    const titleKey = htmlEl.getAttribute("data-i18n-title");
+    if (titleKey && strings[titleKey]) {
+      htmlEl.setAttribute("title", strings[titleKey]);
     }
   });
 
@@ -317,10 +332,13 @@ function setupPageTransitions() {
 
         // Content tauschen
         mainContent.innerHTML = newContent.innerHTML;
+        
+        // Fokus setzen für Barrierefreiheit (Screenreader-Unterstützung)
+        mainContent.focus();
 
         // Re-run initializations
         init();
-
+        
         // Scroll to top
         window.scrollTo(0, 0);
       }

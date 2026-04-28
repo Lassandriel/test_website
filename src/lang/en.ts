@@ -133,4 +133,10 @@ export const en: Translation = {
   "404_text":
     "It seems this page has been moved, deleted, or it's just hiding in a secret chicken coop.",
   back_home: "Back to Safety (Home)",
+  skip_link: "Skip to main content",
+  aria_label_change_language: "Change Language",
+  aria_label_theme_toggle: "Toggle theme",
+  title_theme_toggle: "Toggle between dark and light theme",
+  aria_label_menu_toggle: "Toggle navigation menu",
+  aria_label_back_to_top: "Back to top",
 };
