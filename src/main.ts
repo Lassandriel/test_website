@@ -140,16 +140,28 @@ function setupTheme() {
     }
 }
 
-// Und die Aufrufe oben in den Start-Bereich (oder ans Ende der Datei) hinzufügen:
-setupPageTransitions();
-setupEffects();
-setupNavigation();
-setupTheme();
-setupCookieBanner();
-updateTexts();
-setupLanguageSwitcher();
-setupActiveNavHighlight();
-setupScrollEffects();
+// --- Initialization ---
+function init() {
+    setupPageTransitions();
+    setupEffects();
+    setupNavigation();
+    setupTheme();
+    setupCookieBanner();
+    updateTexts();
+    setupLanguageSwitcher();
+    setupActiveNavHighlight();
+    setupScrollEffects();
+    setupFAQ();
+    setupEasterEgg();
+    setupContactForm();
+}
+
+// Ensure the DOM is ready before running scripts
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 // Global verfügbar machen für Notfälle
 (window as any).setLanguage = (lang: string) => {
@@ -301,10 +313,10 @@ function setupEffects() {
     };
 
     // Erzeuge periodisch neue Federn
-    setInterval(createFeather, 800);
+    setInterval(createFeather, 1500); // Seltener neue Federn für bessere Performance
 
-    // Initial ein paar Federn spawnen
-    for (let i = 0; i < 15; i++) {
+    // Initial weniger Federn spawnen
+    for (let i = 0; i < 8; i++) {
         createFeather();
     }
 
@@ -449,39 +461,26 @@ function setupFAQ() {
         });
     });
 }
-setupFAQ();
-
-
 
 // --- Easter Egg Logic ---
 function setupEasterEgg() {
-    // These emoji will fly across the screen when triggered
     const chickenEmojis = ['🐔', '🐣', '🐥', '🐤', '🦆', '🐧', '🐓', '🦅'];
-
     const triggerEasterEgg = () => {
         const emoji = document.createElement('span');
         emoji.className = 'easter-chicken';
         emoji.textContent = chickenEmojis[Math.floor(Math.random() * chickenEmojis.length)];
         emoji.style.fontSize = (Math.floor(Math.random() * 24) + 28) + 'px';
         emoji.style.top = Math.floor(Math.random() * 70) + 5 + '%';
-        emoji.style.bottom = 'auto';
-
-        // 50/50: go left-to-right or right-to-left
         if (Math.random() > 0.5) {
             emoji.style.left = '-80px';
-            emoji.style.right = 'auto';
             emoji.style.animationName = 'chicken-run';
         } else {
             emoji.style.right = '-80px';
-            emoji.style.left = 'auto';
             emoji.style.animationName = 'chicken-run-rtl';
         }
-
         document.body.appendChild(emoji);
         setTimeout(() => emoji.remove(), 9000);
     };
-
-    // Only click/tap on the easter egg hint triggers it (desktop + mobile)
     document.querySelectorAll('.easter-hint-container').forEach(el => {
         el.addEventListener('click', () => {
             for (let i = 0; i < 10; i++) setTimeout(triggerEasterEgg, i * 200);
@@ -489,14 +488,11 @@ function setupEasterEgg() {
         (el as HTMLElement).style.cursor = 'pointer';
     });
 }
-setupEasterEgg();
-
 
 // --- Contact Form Logic ---
 function setupContactForm() {
     const form = document.getElementById('contact-form') as HTMLFormElement;
     if (!form) return;
-
     let successMsg = document.querySelector('.contact-success-msg') as HTMLElement;
     if (!successMsg) {
         successMsg = document.createElement('p');
@@ -504,8 +500,6 @@ function setupContactForm() {
         const submitBtn = form.querySelector('[type="submit"]');
         submitBtn?.insertAdjacentElement('afterend', successMsg);
     }
-
-    // Toggle button switching
     const toggleBtns = form.querySelectorAll<HTMLButtonElement>('.toggle-btn');
     toggleBtns.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -513,32 +507,27 @@ function setupContactForm() {
             btn.classList.add('active');
         });
     });
-
     form.addEventListener('submit', (e) => {
         e.preventDefault();
-
+        const strings = translations[currentLanguage];
         const name = (form.querySelector('#name') as HTMLInputElement).value.trim();
         const message = (form.querySelector('#message') as HTMLTextAreaElement).value.trim();
-        const activeToggle = form.querySelector<HTMLButtonElement>('.toggle-btn.active');
-        const inquiryType = activeToggle?.dataset.value ?? 'business';
-
-        const strings = translations[currentLanguage];
-        const subjectPrefix = strings?.['contact_subject_prefix'] ?? 'Message from';
+        const inquiryType = form.querySelector<HTMLButtonElement>('.toggle-btn.active')?.dataset.value ?? 'business';
         const recipient = inquiryType === 'fan' ? 'fan@nhywyll.com' : 'contact@nhywyll.com';
-
-        const subject = encodeURIComponent(`${subjectPrefix} ${name}`);
+        const subject = encodeURIComponent(`${strings?.['contact_subject_prefix'] ?? 'Message from'} ${name}`);
         const body = encodeURIComponent(message);
-        const mailto = `mailto:${recipient}?subject=${subject}&body=${body}`;
-
-        window.location.href = mailto;
-
+        window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
         successMsg.textContent = strings?.['contact_success'] ?? 'Your mail program has been opened!';
         successMsg.style.display = 'block';
         form.reset();
-        // Reset toggle back to Business
         toggleBtns.forEach((b, i) => b.classList.toggle('active', i === 0));
-
         setTimeout(() => { successMsg.style.display = 'none'; }, 7000);
     });
 }
-setupContactForm();
+
+
+
+
+
+
+

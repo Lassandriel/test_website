@@ -343,6 +343,7 @@ header {
 main {
   position: relative;
   z-index: 1;
+  will-change: transform, opacity;
 }
 
 /* Hero section */
@@ -2328,7 +2329,7 @@ footer {
 @keyframes pageEnterAnim {
   from {
     opacity: 0;
-    transform: translateX(30px);
+    transform: translateX(15px);
   }
   to {
     opacity: 1;
@@ -2343,7 +2344,7 @@ footer {
   }
   to {
     opacity: 0;
-    transform: translateX(-30px);
+    transform: translateX(-15px);
   }
 }
 
