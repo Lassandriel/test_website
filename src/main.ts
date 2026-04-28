@@ -141,19 +141,41 @@ function setupTheme() {
 }
 
 // --- Initialization ---
+let isFirstLoad = true;
+
 function init() {
-    setupPageTransitions();
-    setupEffects();
-    setupNavigation();
-    setupTheme();
-    setupCookieBanner();
+    if (isFirstLoad) {
+        setupPageTransitions();
+        setupEffects();
+        setupNavigation();
+        setupTheme();
+        setupCookieBanner();
+        setupLanguageSwitcher();
+        setupScrollEffects();
+        isFirstLoad = false;
+    }
+    
+    // Page-specific initializations
     updateTexts();
-    setupLanguageSwitcher();
     setupActiveNavHighlight();
-    setupScrollEffects();
     setupFAQ();
     setupEasterEgg();
     setupContactForm();
+    
+    // Smooth entrance for first load or SPA load
+    const mainContent = document.getElementById('main-content');
+    if (mainContent) {
+        mainContent.classList.remove('page-exit');
+        mainContent.classList.add('page-enter');
+        
+        const cleanup = (e: AnimationEvent) => {
+            if (e.animationName === 'pageEnterAnim') {
+                mainContent.classList.remove('page-enter');
+                mainContent.removeEventListener('animationend', cleanup);
+            }
+        };
+        mainContent.addEventListener('animationend', cleanup);
+    }
 }
 
 // Ensure the DOM is ready before running scripts
@@ -173,9 +195,12 @@ if (document.readyState === 'loading') {
 // --- Scroll Effects (Progress Bar & Back-to-Top) ---
 function setupScrollEffects() {
     // Progress Bar Element erstellen
-    const progressBar = document.createElement('div');
-    progressBar.className = 'scroll-progress';
-    document.body.appendChild(progressBar);
+    let progressBar = document.querySelector('.scroll-progress') as HTMLElement;
+    if (!progressBar) {
+        progressBar = document.createElement('div');
+        progressBar.className = 'scroll-progress';
+        document.body.appendChild(progressBar);
+    }
 
     const backToTop = document.querySelector('.back-to-top') as HTMLElement;
 
@@ -185,7 +210,7 @@ function setupScrollEffects() {
         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
         
-        progressBar.style.width = scrolled + "%";
+        if (progressBar) progressBar.style.width = scrolled + "%";
 
         // Back-to-Top Button ein/ausblenden
         if (backToTop) {
@@ -227,18 +252,83 @@ function setupActiveNavHighlight() {
     });
 }
 
-// --- Smooth Page Transitions ---
+// --- Smooth Page Transitions (SPA) ---
+const pageCache = new Map<string, string>();
+
 function setupPageTransitions() {
     const mainContent = document.getElementById('main-content');
     if (!mainContent) return;
 
-    // Wenn die Seite lädt, main mit page-enter Klasse versehen
-    mainContent.classList.add('page-enter');
+    const prefetchPage = async (url: string) => {
+        if (pageCache.has(url)) return;
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                const html = await response.text();
+                pageCache.set(url, html);
+            }
+        } catch (err) {
+            console.warn('Prefetch failed for:', url);
+        }
+    };
 
-    // Nach der Animation die Klasse entfernen, um transform-Seiteneffekte (wie bei z-index oder fixed) zu vermeiden
-    mainContent.addEventListener('animationend', (e) => {
-        if (e.animationName === 'pageEnterAnim') {
-            mainContent.classList.remove('page-enter');
+    const loadPage = async (url: string, pushState = true) => {
+        try {
+            let html = pageCache.get(url);
+            
+            if (!html) {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('Network response was not ok');
+                html = await response.text();
+                pageCache.set(url, html);
+            }
+            
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            const newContent = doc.getElementById('main-content');
+            const newTitle = doc.title;
+
+            if (newContent) {
+                if (pushState) {
+                    history.pushState({ url }, '', url);
+                }
+                document.title = newTitle;
+                
+                // Sanft ausblenden
+                mainContent.classList.add('page-exit');
+                
+                // Warten bis Animation fertig ist
+                setTimeout(() => {
+                    mainContent.innerHTML = newContent.innerHTML;
+                    
+                    // Re-run initializations
+                    init();
+                    
+                    window.scrollTo(0, 0);
+                }, 500);
+            }
+        } catch (error) {
+            console.error('Failed to load page via SPA:', error);
+            window.location.href = url; // Fallback zu normalem Laden
+        }
+    };
+
+    window.addEventListener('popstate', (e) => {
+        if (e.state && e.state.url) {
+            loadPage(e.state.url, false);
+        } else {
+            loadPage(window.location.href, false);
+        }
+    });
+
+    // Prefetching bei Mouseover
+    document.addEventListener('mouseover', (e) => {
+        const link = (e.target as HTMLElement).closest('a');
+        if (link && link.href) {
+            const url = new URL(link.href);
+            if (url.origin === window.location.origin) {
+                prefetchPage(link.href);
+            }
         }
     });
 
@@ -254,27 +344,27 @@ function setupPageTransitions() {
         try {
             const url = new URL(link.href);
 
-            // Nur bei Links auf derselben Domain, die nicht im neuen Tab öffnen
             if (url.origin === window.location.origin && targetAttr !== '_blank') {
                 
-                // Wenn der Link auf die exakt gleiche Seite zeigt (z.B. nur ein Anker wie #privacy)
-                if (url.pathname === window.location.pathname) {
-                    return; // Normales Scroll-Verhalten des Browsers zulassen
+                if (url.pathname === window.location.pathname && url.hash) {
+                    return;
+                }
+                
+                if (url.pathname === window.location.pathname && !url.hash) {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    return;
                 }
 
-                // Für "mailto:" oder "tel:" ignorieren (die URL origin ist dann anders oder es wirft Fehler, aber zur Sicherheit)
                 if (link.getAttribute('href')?.startsWith('mailto:')) return;
+                if (link.getAttribute('href')?.startsWith('tel:')) return;
 
                 e.preventDefault();
                 
-                // Aktuelle Animationen entfernen, Exit-Animation starten
-                mainContent.classList.remove('page-enter');
                 mainContent.classList.add('page-exit');
-
-                // Warten bis Animation fertig ist, dann weiterleiten
                 setTimeout(() => {
-                    window.location.href = link.href;
-                }, 500); // Entspricht der Dauer der pageExitAnim
+                    loadPage(link.href);
+                }, 500);
             }
         } catch (err) {
             // Ignorieren falls URL ungültig ist
